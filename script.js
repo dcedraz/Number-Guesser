@@ -8,8 +8,10 @@ const generateTarget = () => Math.floor(Math.random() * 10);
 
 const compareGuesses = (userGuess, computerGuess, targetNumber) => {
 
-    let computerDiffTarget = Math.abs(targetNumber - computerGuess);
-    let userDiffTarget = Math.abs(userGuess - computerGuess);
+    let computerDiffTarget = getAbsoluteDistance(targetNumber, computerGuess);
+    let userDiffTarget = getAbsoluteDistance(userGuess, computerGuess);
+       
+    return computerDiffTarget > userDiffTarget ? false : true;
  
     /* First I did this way
     switch (true) {
@@ -18,9 +20,17 @@ const compareGuesses = (userGuess, computerGuess, targetNumber) => {
         case computerDiffTarget > userDiffTarget : return false;
         default: return true;
     };
+    But then I realized all the above lines could be down to a single one as we see in the return above.
     */
-
-    // But then I realized all the above lines could be down to a single one:
-    return computerDiffTarget > userDiffTarget ? false : true;
-
+   
 };
+
+const getAbsoluteDistance = (a, b) => Math.abs(a - b);
+
+const updateScore = winner => {
+    winner == 'human' ? humanScore++ : 
+    winner == 'computer' ? computerScore++ : 
+    false ;
+}
+
+const advanceRound = () => currentRoundNumber++;
